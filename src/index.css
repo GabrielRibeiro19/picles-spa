@@ -15,9 +15,12 @@
   --color-gray-400: #1e1e1e;
 
   --font-family-sans-serif: 'Poppins', Helvetica, Arial, sans-serif;
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.25rem; /* 20px */
-  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-lg: 1.25rem;
+  /* 20px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
