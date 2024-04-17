@@ -1,9 +1,22 @@
+import { Link } from 'react-router-dom'
+import { Button, ButtonVariant } from '../Button'
 import styles from './Header.module.css'
 
-export function Header() {
+interface IHeader {
+  showReturn?: boolean
+}
+
+export function Header({ showReturn }: IHeader) {
   return (
     <header className={styles.header}>
-      <h1>Header</h1>
+      <Link to="/admin">
+        <Button variant={ButtonVariant.Outlined}>Tenho um abrigo</Button>
+      </Link>
+      {showReturn && (
+        <Link to="/pets" className={styles.return}>
+          <Button variant={ButtonVariant.Text}>Voltar</Button>
+        </Link>
+      )}
     </header>
   )
 }
