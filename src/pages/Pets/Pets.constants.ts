@@ -1,9 +1,15 @@
-export const filterColumns = [
+interface IFilterColumn {
+  name: 'gender' | 'size' | 'type'
+  title: string
+  options: { value: string; text: string }[]
+}
+
+export const filterColumns: IFilterColumn[] = [
   {
     name: 'type',
     title: 'Espécie',
     options: [
-      { value: '', text: 'Todos' },
+      { value: '', text: 'Todas' },
       { value: 'cachorro', text: 'Cachorros' },
       { value: 'gato', text: 'Gatos' },
     ],

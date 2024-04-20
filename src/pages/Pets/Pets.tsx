@@ -8,12 +8,18 @@ import { Skeleton } from '../../components/common/Skeleton'
 import { Grid } from '../../components/layout/Grid'
 import { usePetList } from '../../hooks/usePetList'
 import styles from './Pets.module.css'
+import { filterColumns } from './Pets.constants'
+import { FormEvent } from 'react'
+import { GetPetsRequest } from '../../interfaces/pet'
 
 export function Pets() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const urlParams = {
     page: searchParams.get('page') ? Number(searchParams.get('page')) : 1,
+    type: searchParams.get('type') ?? '',
+    size: searchParams.get('size') ?? '',
+    gender: searchParams.get('gender') ?? '',
   }
 
   const { data, isLoading } = usePetList(urlParams)
@@ -25,33 +31,51 @@ export function Pets() {
     })
   }
 
+  function getFormValue(form: HTMLFormElement) {
+    const formData = new FormData(form)
+    return Object.fromEntries(formData)
+  }
+
+  function updateSearchParams(urlParams: GetPetsRequest) {
+    const fields: (keyof GetPetsRequest)[] = ['type', 'size', 'gender']
+    const newParams = new URLSearchParams()
+
+    fields.forEach((field) => {
+      if (urlParams[field]) {
+        newParams.set(field, String(urlParams[field]))
+      }
+    })
+    newParams.set('page', '1')
+
+    return newParams
+  }
+
+  function applyFilters(event: FormEvent) {
+    event.preventDefault()
+
+    const formValues = getFormValue(event.target as HTMLFormElement)
+    const newSearchParams = updateSearchParams(formValues)
+
+    setSearchParams(newSearchParams)
+  }
+
   return (
     <Grid>
       <div className={styles.container}>
         <Header />
 
-        <form className={styles.filters} action="">
+        <form className={styles.filters} onSubmit={applyFilters}>
           <div className={styles.columns}>
-            <div className={styles.column}>
-              <Select
-                label="Espécie"
-                options={[
-                  { value: '', text: 'Todos' },
-                  { value: 'cachorro', text: 'Cachorro' },
-                  { value: 'gato', text: 'Gato' },
-                ]}
-              />
-            </div>
-            <div className={styles.column}>
-              <Select
-                label="Espécie"
-                options={[
-                  { value: '', text: 'Todos' },
-                  { value: 'cachorro', text: 'Cachorro' },
-                  { value: 'gato', text: 'Gato' },
-                ]}
-              />
-            </div>
+            {filterColumns.map((filter) => (
+              <div className={styles.column} key={filter.title}>
+                <Select
+                  label={filter.title}
+                  defaultValue={urlParams[filter.name]}
+                  name={filter.name}
+                  options={filter.options}
+                />
+              </div>
+            ))}
           </div>
           <Button type="submit">Buscar</Button>
         </form>
