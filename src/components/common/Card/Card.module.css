@@ -3,6 +3,11 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   text-decoration: none;
+  transition: scale 0.2s;
+}
+
+.card:hover {
+  scale: 1.04;
 }
 
 .card img {
