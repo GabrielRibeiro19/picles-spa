@@ -9,7 +9,7 @@ export async function getPets(
     const { data } = await httpClient.get('/pet', { params })
     return data
   } catch (error) {
-    console.log('Erro ao buscar pets: ', error)
+    console.error('Erro ao buscar pets: ', error)
     throw error
   }
 }
