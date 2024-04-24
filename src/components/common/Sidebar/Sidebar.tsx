@@ -12,6 +12,7 @@ export function Sidebar() {
       event.preventDefault()
       toast.error('Insira os dados do abrigo')
     }
+    toast.success('Acesso permitido!')
   }
   return (
     <>
