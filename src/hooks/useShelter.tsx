@@ -10,7 +10,7 @@ export function useShelter(
   options?: Partial<UseQueryOptions<IShelter, Error>>,
 ): UseQueryResult<IShelter, Error> {
   const result = useQuery({
-    staleTime: Infinity,
+    // staleTime: Infinity,
     ...options,
     queryKey: ['get-shelter'],
     queryFn: () => getShelter(),
