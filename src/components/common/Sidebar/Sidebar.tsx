@@ -6,7 +6,7 @@ import { useShelter } from '../../../hooks/useShelter'
 export function Sidebar() {
   const { data } = useShelter()
   function validate(event: React.MouseEvent) {
-    const canAccess = !!data?.shelterWhatsapp
+    const canAccess = !!data?.shelterWhatsApp
 
     if (!canAccess) {
       event.preventDefault()

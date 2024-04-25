@@ -2,7 +2,7 @@ export interface IShelter {
   shelterName: string
   shelterEmail: string
   shelterPhone: string
-  shelterWhatsapp: string
+  shelterWhatsApp: string
   createdAt: string
   updatedAt: string
 }

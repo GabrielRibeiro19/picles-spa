@@ -57,7 +57,7 @@ export function PetDetails() {
                   <p>{petData?.bio}</p>
                   {!shelterIsError && (
                     <a
-                      href={`https://wa.me/${shelterData?.shelterWhatsapp}?text=Olá, gostaria de falar sobre o ${petData?.name}`}
+                      href={`https://wa.me/${shelterData?.shelterWhatsApp}?text=Olá, gostaria de falar sobre o ${petData?.name}`}
                       target="_blank"
                       rel="noreferrer"
                     >
