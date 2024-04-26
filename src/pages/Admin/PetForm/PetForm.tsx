@@ -11,6 +11,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { addPet } from '../../../services/pets/addPet'
+import { PictureUpload } from '../../../components/common/PictureUpload'
 
 enum FormStatus {
   ADD = 'add',
@@ -63,7 +64,7 @@ export function PetForm() {
       toast.success(MESSAGE_BY_STATUS[status].success, {
         id: toastId,
       })
-    } catch (error) {
+    } catch {
       toast.error(MESSAGE_BY_STATUS[status].error, {
         id: toastId,
       })
@@ -73,6 +74,7 @@ export function PetForm() {
   return (
     <Panel>
       <form className={styles.container} onSubmit={handleSubmit(submit)}>
+        <PictureUpload />
         <div className={styles.fields}>
           <div>
             <Input label="Nome" {...register('name')} />
