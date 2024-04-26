@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import { updateShelter } from '../../../services/shelter/updateShelter'
 import { useQueryClient } from '@tanstack/react-query'
 import { useShelter } from '../../../hooks/useShelter'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Skeleton } from '../../../components/common/Skeleton'
 import { format } from 'date-fns'
 
@@ -40,6 +40,8 @@ export function Shelter() {
 
   const { data, isLoading } = useShelter()
 
+  const [dateUpdateFormated, setDateUpdateFormated] = useState('')
+
   useEffect(() => {
     if (!isLoading && data) {
       reset({
@@ -48,10 +50,13 @@ export function Shelter() {
         phone: data.shelterPhone,
         whatsApp: data.shelterWhatsApp,
       })
+
+      const updateDateFormatted =
+        data && format(new Date(data.updatedAt), `dd/MM/yyyy 'às' HH'h'mm`)
+
+      setDateUpdateFormated(updateDateFormatted)
     }
   }, [data, isLoading, reset])
-
-  const updateDateFormatted = data && format(new Date(data.createdAt), 'MMMM')
 
   const queryClient = useQueryClient()
 
@@ -69,6 +74,8 @@ export function Shelter() {
       })
 
       queryClient.invalidateQueries({ queryKey: ['getShelter'] })
+
+      setDateUpdateFormated(format(new Date(), `dd/MM/yyyy 'às' HH:mm`))
 
       toast.success('Dados salvos com sucesso', {
         id: toastId,
@@ -139,8 +146,8 @@ export function Shelter() {
           >
             Salvar dados
           </Button>
-          <div style={{ display: 'block' }}>
-            <p>última atualização em: {updateDateFormatted}</p>
+          <div style={{ display: 'block', color: 'green', fontWeight: '600' }}>
+            <p>última atualização em {dateUpdateFormated}</p>
           </div>
         </form>
       )}
